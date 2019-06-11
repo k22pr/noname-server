@@ -4,10 +4,9 @@ const server = require("http").createServer();
 const io = require("socket.io")(server);
 import db from "./db/connection";
 import { SHA3 } from "sha3";
-import { IUserEncrypt, UserEncryptModel } from "./db/model.user";
-import { ILoginData } from "./db/model.login";
-import Login from "./socket/client.login";
 import Security from "./util/run.security";
+import * as Socket from "./socket";
+
 var Prompt = require("prompt-password");
 
 (async () => {
@@ -33,6 +32,7 @@ async function start() {
    db();
 
    io.on("connection", client => {
+      console.log("connected");
       client.on("event", data => {
          /* … */
       });
@@ -41,7 +41,12 @@ async function start() {
          /* … */
       });
 
-      client.on("login", Login.LoginValidateCheck);
+      client.on("login", Socket.SLogin.LoginValidateCheck);
+      client.on("keyShare", Socket.SEnrypt.KeyChange);
+      // client.on("keyShare", data => {
+      //    console.log(data);
+      //    console.log("keyshared event");
+      // });
    });
    server.listen(3004);
 }

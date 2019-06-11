@@ -26,6 +26,7 @@
       "bcrypt": "^3.0.6",
       "chain-hash": "^0.1.1",
       "dotenv": "^8.0.0",
+      "elliptic": "^6.4.1",
       "mongoose": "^5.5.14",
       "prompt-password": "^1.2.0",
       "readline-sync": "^1.4.9",
