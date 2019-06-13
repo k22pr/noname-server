@@ -14,26 +14,24 @@
       "@babel/preset-env": "^7.4.5",
       "@babel/preset-typescript": "^7.3.3",
       "babel-loader": "^8.0.6",
-      "jest": "^24.8.0",
       "nodemon": "^1.19.1",
       "ts-loader": "^6.0.2",
       "typescript": "^3.5.1"
    },
    "dependencies": {
       "@babel/runtime": "^7.4.5",
-      "@types/jest": "^24.0.13",
       "@types/node": "^12.0.7",
       "bcrypt": "^3.0.6",
       "chain-hash": "^0.1.1",
       "dotenv": "^8.0.0",
-      "elliptic": "^6.4.1",
+      "eccrypto": "^1.1.1",
+      "ecdh": "^0.1.1",
       "mongoose": "^5.5.14",
+      "node-rsa": "^1.0.5",
       "prompt-password": "^1.2.0",
-      "readline-sync": "^1.4.9",
+      "secp256k1": "^3.7.1",
       "sha3": "^2.0.4",
-      "socket.io": "^2.2.0",
-      "ts-jest": "^24.0.2",
-      "tty": "^1.0.1"
+      "socket.io": "^2.2.0"
    },
    "scripts": {
       "babel-node": "babel-node --extensions \".ts,.tsx\"",

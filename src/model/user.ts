@@ -22,6 +22,16 @@ let UserEncryptSchema = new Schema({
 });
 let UserEncryptModel = mongoose.model<IUserEncrypt>("user.encrypt", UserEncryptSchema);
 
+interface IUserShadow extends Document {
+  identity: String;
+  encryptKey: Buffer;
+}
+let IUserShadowSchema = new Schema({
+  identity: { type: String, required: true, unique: true },
+  encryptKey: { type: Buffer, required: true }
+});
+let IUserShadowModel = mongoose.model<IUserShadow>("user.encrypt", IUserShadowSchema);
+
 interface IUserFailCount extends Document {
   identity: String;
   failCount: Number;
@@ -35,4 +45,4 @@ let UserFailCount = new Schema({
 
 let UserFailCountModel = mongoose.model<IUserEncrypt>("user.failCount", UserFailCount);
 
-export { IUser, UserModel, IUserEncrypt, UserEncryptModel, IUserFailCount, UserFailCountModel };
+export { IUser, UserModel, IUserEncrypt, UserEncryptModel, IUserFailCount, UserFailCountModel, IUserShadow, IUserShadowModel };

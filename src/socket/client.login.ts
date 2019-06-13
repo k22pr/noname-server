@@ -5,4 +5,8 @@ export default class {
     console.log("login validate checking...");
     console.log(loginData);
   }
+
+  public static Singup(client: any, encData: Buffer) {
+    console.log(encData);
+  }
 }
