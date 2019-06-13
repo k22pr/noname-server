@@ -7,10 +7,12 @@ import { SHA3 } from "sha3";
 import Security from "./util/run.security";
 import * as Socket from "./socket";
 import * as Model from "./model";
+import ClientList from "./class/class.client";
 
 var Prompt = require("prompt-password");
 
 (async () => {
+  console.log("starting server...");
   if (process.env.DB_PASSWORD_HASH != undefined) {
     Security.setMongoKey = process.env.DB_PASSWORD_HASH;
     await start();
@@ -27,30 +29,36 @@ var Prompt = require("prompt-password");
       await start();
     });
   }
-})();
+})().then(() => {
+  console.log("server is ready");
+});
 
 async function start() {
-  db();
+  console.log("starting mongo...");
+  await db();
 
+  console.log("starting socket...");
   io.on("connection", client => {
-    console.log("connected");
     client.on("event", data => {
       /* … */
     });
 
-    client.on("disconnect", () => {});
+    client.on("disconnect", () => {
+      ClientList.Remove(client);
+    });
 
-    client.on("keyShare", (loginData: Buffer) => {
+    client.on("keyShare", (loginData: string) => {
       Socket.Enrypt.KeyChange(client, loginData);
     });
     client.on("login", Socket.Login.LoginValidateCheck);
-    client.on("singup", (encData: Buffer) => {
-      Socket.Login.Singup(client, encData);
+    client.on("signup", (encData: string) => {
+      Socket.Login.Signup(client, encData);
     });
     // client.on("keyShare", data => {
     //    console.log(data);
     //    console.log("keyshared event");
     // });
   });
-  server.listen(3005);
+  await server.listen(3005);
+  console.log("socket is ready");
 }

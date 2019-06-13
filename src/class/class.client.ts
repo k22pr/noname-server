@@ -1,21 +1,44 @@
+import Encrypt from "../util/encrypt";
+
 class ClientList {
-  clientList: Client[];
+  static clientList: Client[] = [];
 
-  findClient(client: any) {
-    let find = this.clientList.find(current => {
-      current.id == client.id;
+  public static Add(client: any, serverKey: Encrypt, clientPublicKey: string) {
+    this.clientList.push(new Client(client, serverKey, clientPublicKey));
+  }
+
+  public static Remove(client: any) {
+    let index = 0;
+    this.clientList.find(current => {
+      if (client.id == current.id) {
+        this.clientList.splice(index, 1);
+      }
+      index++;
     });
+  }
 
-    return find[0];
+  public static Find(client: any) {
+    return this.clientList.find(current => {
+      return current.id == client.id;
+    });
   }
 }
 
 class Client {
   id: string;
   client: any;
-  privateKey: Buffer;
-  publicKey: Buffer;
-  clientKey: Buffer;
+  privateKey: string;
+  publicKey: string;
+  clientPublicKey: string;
+
+  constructor(client: any, serverKey: Encrypt, clientPublicKey: string) {
+    this.id = client.id;
+    this.client = client;
+    this.privateKey = serverKey.privateKey;
+    this.publicKey = serverKey.publicKey;
+    this.clientPublicKey = clientPublicKey;
+  }
 }
 
-export { Client, ClientList };
+export default ClientList;
+export { Client };
