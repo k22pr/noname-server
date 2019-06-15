@@ -39,6 +39,7 @@ async function start() {
 
   console.log("starting socket...");
   io.on("connection", client => {
+    console.log("connection user");
     client.on("event", data => {
       /* … */
     });
@@ -50,9 +51,15 @@ async function start() {
     client.on("keyShare", (loginData: string) => {
       Socket.Enrypt.KeyChange(client, loginData);
     });
-    client.on("login", Socket.Login.LoginValidateCheck);
+    client.on("login", () => {
+      let findUser = ClientList.Find(client);
+      if (!findUser) Socket.Enrypt.requestKey(findUser, "login", "");
+      Socket.Login.LoginValidateCheck;
+    });
     client.on("signup", (encData: string) => {
-      Socket.Login.Signup(client, encData);
+      let findUser = ClientList.Find(client);
+      if (!findUser) Socket.Enrypt.requestKey(client, "signup", encData);
+      else Socket.Login.Signup(findUser, encData);
     });
     // client.on("keyShare", data => {
     //    console.log(data);

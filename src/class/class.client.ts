@@ -1,9 +1,10 @@
-import Encrypt from "../util/encrypt";
+import * as Encrypt from "../util/encrypt";
+import { SHA3, Keccak } from "sha3";
 
 class ClientList {
   static clientList: Client[] = [];
 
-  public static Add(client: any, serverKey: Encrypt, clientPublicKey: string) {
+  public static Add(client: any, serverKey: Encrypt.Rsa, clientPublicKey: string) {
     this.clientList.push(new Client(client, serverKey, clientPublicKey));
   }
 
@@ -31,7 +32,7 @@ class Client {
   publicKey: string;
   clientPublicKey: string;
 
-  constructor(client: any, serverKey: Encrypt, clientPublicKey: string) {
+  constructor(client: any, serverKey: Encrypt.Rsa, clientPublicKey: string) {
     this.id = client.id;
     this.client = client;
     this.privateKey = serverKey.privateKey;

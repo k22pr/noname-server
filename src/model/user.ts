@@ -1,48 +1,64 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-interface IUser extends Document {
+interface IUser {
   userId: String;
   userName: String;
-  password: String;
+  date: Date;
 }
-let UserSchema: Schema = new Schema({
-  userId: { type: String, required: true, unique: true },
-  userName: { type: String, required: true },
-  password: { type: String, required: true }
-});
-let UserModel = mongoose.model<IUser>("user", UserSchema);
 
 interface IUserEncrypt extends Document {
-  identity: String;
-  encrypt: Buffer;
+  index: String;
+  encrypt: String;
 }
-let UserEncryptSchema = new Schema({
-  identity: { type: String, required: true, unique: true },
-  encrypt: { type: String, required: true }
-});
+let UserEncryptSchema = new Schema(
+  {
+    index: { type: String, required: true, unique: true },
+    encrypt: { type: String, required: true }
+  },
+  { versionKey: false }
+);
 let UserEncryptModel = mongoose.model<IUserEncrypt>("user.encrypt", UserEncryptSchema);
 
-interface IUserShadow extends Document {
+interface IIdBlock extends Document {
   identity: String;
-  encryptKey: Buffer;
+  index: String;
 }
-let IUserShadowSchema = new Schema({
-  identity: { type: String, required: true, unique: true },
-  encryptKey: { type: Buffer, required: true }
-});
-let IUserShadowModel = mongoose.model<IUserShadow>("user.encrypt", IUserShadowSchema);
+let IIdBlockSchema = new Schema(
+  {
+    identity: { type: String, required: true, unique: true },
+    index: { type: String, required: true, unique: true }
+  },
+  { versionKey: false }
+);
+let IIdBlockModel = mongoose.model<IIdBlock>("user.idBlock", IIdBlockSchema);
+interface IPassBlock extends Document {
+  passCode: String;
+  encryptKey: String;
+}
+let IPassBlockSchema = new Schema(
+  {
+    passCode: { type: String, required: true, unique: true },
+    encryptKey: { type: String, required: true }
+  },
+  { versionKey: false }
+);
+let IPassBlockModel = mongoose.model<IPassBlock>("user.passBlock", IPassBlockSchema);
 
 interface IUserFailCount extends Document {
   identity: String;
   failCount: Number;
   lastDate: Date;
 }
-let UserFailCount = new Schema({
-  identity: { type: String, required: true, unique: true },
-  failCount: { type: Number, required: true },
-  lastDate: { type: Date }
-});
+let UserFailCount = new Schema(
+  {
+    identity: { type: String, required: true, unique: true },
+    failCount: { type: Number, required: true },
+    lastDate: { type: Date }
+  },
+  { versionKey: false }
+);
 
 let UserFailCountModel = mongoose.model<IUserEncrypt>("user.failCount", UserFailCount);
 
-export { IUser, UserModel, IUserEncrypt, UserEncryptModel, IUserFailCount, UserFailCountModel, IUserShadow, IUserShadowModel };
+export { IUser, IUserEncrypt, UserEncryptModel, IUserFailCount, UserFailCountModel };
+export { IIdBlock, IIdBlockModel, IPassBlock, IPassBlockModel };
