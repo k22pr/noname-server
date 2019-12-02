@@ -34,7 +34,8 @@
     "random-bytes": "^1.0.0",
     "secp256k1": "^3.7.1",
     "sha3": "^2.0.4",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.2.0",
+    "tslint": "^5.17.0"
   },
   "scripts": {
     "babel-node": "babel-node --extensions \".ts,.tsx\"",

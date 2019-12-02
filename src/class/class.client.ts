@@ -11,7 +11,7 @@ class ClientList {
   public static Remove(client: any) {
     let index = 0;
     this.clientList.find(current => {
-      if (client.id == current.id) {
+      if (current && client.id == current.id) {
         this.clientList.splice(index, 1);
       }
       index++;
