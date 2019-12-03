@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from "mongoose";
+import * as mongoose from "mongoose";
 
 interface IUser {
   userId: String;
@@ -6,54 +6,54 @@ interface IUser {
   date: Date;
 }
 
-interface IUserEncrypt extends Document {
+interface IUserEncrypt {
   index: String;
   encrypt: String;
 }
-let UserEncryptSchema = new Schema(
+let UserEncryptSchema = new mongoose.Schema(
   {
     index: { type: String, required: true, unique: true },
-    encrypt: { type: String, required: true }
+    encrypt: { type: String, required: true },
   },
   { versionKey: false }
 );
 let UserEncryptModel = mongoose.model<IUserEncrypt>("user.encrypt", UserEncryptSchema);
 
-interface IIdBlock extends Document {
+interface IIdBlock {
   identity: String;
   index: String;
 }
-let IIdBlockSchema = new Schema(
+let IIdBlockSchema = new mongoose.Schema(
   {
     identity: { type: String, required: true, unique: true },
-    index: { type: String, required: true, unique: true }
+    index: { type: String, required: true, unique: true },
   },
   { versionKey: false }
 );
 let IIdBlockModel = mongoose.model<IIdBlock>("user.idBlock", IIdBlockSchema);
-interface IPassBlock extends Document {
+interface IPassBlock {
   passCode: String;
   encryptKey: String;
 }
-let IPassBlockSchema = new Schema(
+let IPassBlockSchema = new mongoose.Schema(
   {
     passCode: { type: String, required: true, unique: true },
-    encryptKey: { type: String, required: true }
+    encryptKey: { type: String, required: true },
   },
   { versionKey: false }
 );
 let IPassBlockModel = mongoose.model<IPassBlock>("user.passBlock", IPassBlockSchema);
 
-interface IUserFailCount extends Document {
+interface IUserFailCount {
   identity: String;
   failCount: Number;
   lastDate: Date;
 }
-let UserFailCount = new Schema(
+let UserFailCount = new mongoose.Schema(
   {
     identity: { type: String, required: true, unique: true },
     failCount: { type: Number, required: true },
-    lastDate: { type: Date }
+    lastDate: { type: Date },
   },
   { versionKey: false }
 );

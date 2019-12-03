@@ -3,46 +3,33 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon -e ts -w ./src -x npm run watch:dev",
+    "watch:dev": "ts-node src/index.ts",
+    "build": "babel src --out-dir dist --extensions \".ts,.tsx\"",
+    "start": "node ./dist/index.js",
+    "test": "jest"
+  },
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.5",
-    "@babel/node": "^7.4.5",
-    "@babel/plugin-proposal-class-properties": "^7.4.4",
-    "@babel/plugin-transform-runtime": "^7.4.4",
-    "@babel/plugin-transform-typescript": "^7.4.5",
-    "@babel/polyfill": "^7.4.4",
-    "@babel/preset-env": "^7.4.5",
-    "@babel/preset-typescript": "^7.3.3",
-    "babel-loader": "^8.0.6",
     "nodemon": "^1.19.1",
     "ts-loader": "^6.0.2",
+    "ts-node": "^8.5.4",
     "typescript": "^3.5.1"
   },
   "dependencies": {
-    "@babel/runtime": "^7.4.5",
     "@types/node": "^12.0.7",
     "aes-js": "^3.1.2",
+    "apollo-server-koa": "^2.9.12",
     "bcrypt": "^3.0.6",
     "buffer-splice": "^1.0.0",
     "chain-hash": "^0.1.1",
     "dotenv": "^8.0.0",
     "eccrypto": "^1.1.1",
-    "ecdh": "^0.1.1",
+    "koa": "^2.11.0",
     "mongoose": "^5.5.14",
     "node-rsa": "^1.0.5",
     "prompt-password": "^1.2.0",
     "random-bytes": "^1.0.0",
-    "secp256k1": "^3.7.1",
-    "sha3": "^2.0.4",
-    "socket.io": "^2.2.0",
-    "tslint": "^5.17.0"
-  },
-  "scripts": {
-    "babel-node": "babel-node --extensions \".ts,.tsx\"",
-    "serve": "nodemon --exec yarn run babel-node -- ./src/index.ts",
-    "build": "babel src --out-dir dist --extensions \".ts,.tsx\"",
-    "product": "node ./dist/index.js",
-    "test": "jest",
-    "aa": "nodemon --exec yarn run babel-node -- ./src/test.ts"
+    "sha3": "^2.0.4"
   }
 }

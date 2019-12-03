@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import * as mongoose from "mongoose";
 import { SHA3 } from "sha3";
 
 import Security from "../util/run.security";
@@ -11,10 +11,10 @@ export default async () => {
   let userName: string = "noname";
   let db = await mongoose
     .connect(`mongodb://${userName}:${hash.update(Security.getMongoKey).digest("hex")}@${host}:${port}/${dbName}?authSource=admin`, { useNewUrlParser: true })
-    .then(data => {
+    .then((data) => {
       console.log("db connect");
     })
-    .catch(err => {
+    .catch((err) => {
       console.log("db connect error");
       console.log(err);
     });
