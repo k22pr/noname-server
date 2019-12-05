@@ -3,7 +3,8 @@ import * as mongoose from "mongoose";
 interface IUser {
   userId: String;
   userName: String;
-  date: Date;
+  reg_date: Date;
+  last_date: Date;
 }
 
 interface IUserEncrypt {
