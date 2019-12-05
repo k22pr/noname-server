@@ -1,7 +1,8 @@
 declare function require(str: string);
 require("dotenv").config();
-const server = require("http").createServer();
-const io = require("socket.io")(server);
+const Koa = require("koa");
+const { ApolloServer, gql } = require("apollo-server-koa");
+
 import db from "./db/connection";
 import { SHA3 } from "sha3";
 import Security from "./util/run.security";
@@ -35,36 +36,41 @@ var Prompt = require("prompt-password");
 async function start() {
   console.log("starting mongo...");
   await db();
-
-  console.log("starting socket...");
-  io.on("connection", (client) => {
-    console.log("connection user");
-    client.on("event", (data) => {
-      /* … */
-    });
-
-    client.on("disconnect", () => {
-      ClientList.Remove(client);
-    });
-
-    client.on("keyShare", (loginData: string) => {
-      Socket.Enrypt.KeyChange(client, loginData);
-    });
-    client.on("login", () => {
-      let findUser = ClientList.Find(client);
-      if (!findUser) Socket.Enrypt.requestKey(findUser, "login", "");
-      Socket.Login.LoginValidateCheck;
-    });
-    client.on("signup", (encData: string) => {
-      let findUser = ClientList.Find(client);
-      if (!findUser) Socket.Enrypt.requestKey(client, "signup", encData);
-      else Socket.Login.Signup(findUser, encData);
-    });
-    // client.on("keyShare", data => {
-    //    console.log(data);
-    //    console.log("keyshared event");
-    // });
-  });
-  await server.listen(3005);
-  console.log("socket is ready");
 }
+
+// async function start() {
+//   console.log("starting mongo...");
+//   await db();
+
+//   console.log("starting socket...");
+//   io.on("connection", (client) => {
+//     console.log("connection user");
+//     client.on("event", (data) => {
+//       /* … */
+//     });
+
+//     client.on("disconnect", () => {
+//       ClientList.Remove(client);
+//     });
+
+//     client.on("keyShare", (loginData: string) => {
+//       Socket.Enrypt.KeyChange(client, loginData);
+//     });
+//     client.on("login", () => {
+//       let findUser = ClientList.Find(client);
+//       if (!findUser) Socket.Enrypt.requestKey(findUser, "login", "");
+//       Socket.Login.LoginValidateCheck;
+//     });
+//     client.on("signup", (encData: string) => {
+//       let findUser = ClientList.Find(client);
+//       if (!findUser) Socket.Enrypt.requestKey(client, "signup", encData);
+//       else Socket.Login.Signup(findUser, encData);
+//     });
+//     // client.on("keyShare", data => {
+//     //    console.log(data);
+//     //    console.log("keyshared event");
+//     // });
+//   });
+//   await server.listen(3005);
+//   console.log("socket is ready");
+// }
