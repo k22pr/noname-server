@@ -25,6 +25,7 @@
     "chain-hash": "^0.1.1",
     "dotenv": "^8.0.0",
     "eccrypto": "^1.1.1",
+    "graphql-scalars": "^1.0.4",
     "koa": "^2.11.0",
     "mongoose": "^5.5.14",
     "node-rsa": "^1.0.5",
